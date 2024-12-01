@@ -1,2 +1,0 @@
-# RyB
-Read Your Bible
