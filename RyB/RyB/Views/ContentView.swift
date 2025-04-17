@@ -7,49 +7,6 @@
 
 import SwiftUI
 
-struct DailyVerseView: View {
-    var body: some View {
-        VStack(spacing: 20) {
-            Text("Daily Verse")
-                .font(.title)
-                .fontWeight(.bold)
-                .foregroundColor(.white)
-            
-            VStack(spacing: 15) {
-                // TODO: Dynamic daily Bible verse
-                Text("John 3:16")
-                    .font(.headline)
-                    .foregroundColor(.white.opacity(0.8))
-                
-                Text("For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life.")
-                    .font(.body)
-                    .multilineTextAlignment(.center)
-                    .foregroundColor(.white)
-                    .padding()
-                    .background(Color.white.opacity(0.1))
-                    .cornerRadius(10)
-                
-                Button(action: {
-                    // Share functionality will be added later
-                }) {
-                    HStack {
-                        Image(systemName: "square.and.arrow.up")
-                        Text("Share")
-                    }
-                    .foregroundColor(.white)
-                    .padding()
-                    .background(Color.blue.opacity(0.3))
-                    .cornerRadius(8)
-                }
-            }
-            .padding()
-            
-            Spacer()
-        }
-        .padding()
-    }
-}
-
 struct ContentView: View {
     @State private var showMenu = false
     @State private var showIntro = true
@@ -93,36 +50,16 @@ struct ContentView: View {
                 VStack {
                     // Content Area
                     TabView(selection: $selectedTab) {
-                        // Home Tab
-                        VStack(spacing: 30) {
-                            Image("AppLogo")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 180, height: 180)
-                                .cornerRadius(20)
-                                .shadow(radius: 10)
-                            
-                            Text("Many languages, but only one way to heaven.")
-                                .font(.title2)
-                                .fontWeight(.medium)
-                                .multilineTextAlignment(.center)
-                                .foregroundColor(.white)
-                                .padding(.horizontal)
-                        }
-                        .tag(0)
+                        HomeView()
+                            .tag(0)
                         
-                        // Bible Tab
-                        Text("Bible Content")
-                            .foregroundColor(.white)
+                        BibleView()
                             .tag(1)
                         
-                        // Daily Verse Tab
                         DailyVerseView()
                             .tag(2)
                         
-                        // Preaching Tab
-                        Text("Preaching Content")
-                            .foregroundColor(.white)
+                        PreachingView()
                             .tag(3)
                     }
                     
@@ -194,11 +131,13 @@ struct ContentView: View {
                         .foregroundColor(.white)
                     
                     MenuButton(title: "Bible", icon: "book.fill") {
-                        // TODO: Navigate to Bible view
+                        selectedTab = 1
+                        showMenu = false
                     }
                     
                     MenuButton(title: "Preaching", icon: "speaker.wave.2.fill") {
-                        // TODO: Navigate to Preaching view
+                        selectedTab = 3
+                        showMenu = false
                     }
                 }
                 .padding()
