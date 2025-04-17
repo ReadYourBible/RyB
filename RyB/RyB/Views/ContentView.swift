@@ -61,65 +61,74 @@ struct ContentView: View {
                         
                         PreachingView()
                             .tag(3)
+                            
+                        HymnalView()
+                            .tag(4)
                     }
                     
                     // Bottom Navigation Bar
-                    HStack {
-                        Spacer()
-                        
+                    HStack(spacing: 0) {
                         // Home Button
                         Button(action: { selectedTab = 0 }) {
-                            VStack {
+                            VStack(spacing: 4) {
                                 Image(systemName: "house.fill")
                                     .font(.title2)
                                 Text("Home")
                                     .font(.caption)
                             }
+                            .frame(maxWidth: .infinity)
                             .foregroundColor(selectedTab == 0 ? .white : .gray)
                         }
                         
-                        Spacer()
-                        
                         // Bible Button
                         Button(action: { selectedTab = 1 }) {
-                            VStack {
+                            VStack(spacing: 4) {
                                 Image(systemName: "book.fill")
                                     .font(.title2)
                                 Text("Bible")
                                     .font(.caption)
                             }
+                            .frame(maxWidth: .infinity)
                             .foregroundColor(selectedTab == 1 ? .white : .gray)
                         }
                         
-                        Spacer()
-                        
                         // Daily Verse Button
                         Button(action: { selectedTab = 2 }) {
-                            VStack {
+                            VStack(spacing: 4) {
                                 Image(systemName: "quote.bubble.fill")
                                     .font(.title2)
                                 Text("Verse")
                                     .font(.caption)
                             }
+                            .frame(maxWidth: .infinity)
                             .foregroundColor(selectedTab == 2 ? .white : .gray)
                         }
                         
-                        Spacer()
-                        
-                        // Preaching Button
+                        // Message Button
                         Button(action: { selectedTab = 3 }) {
-                            VStack {
+                            VStack(spacing: 4) {
                                 Image(systemName: "speaker.wave.2.fill")
                                     .font(.title2)
-                                Text("Preaching")
+                                Text("Message")
                                     .font(.caption)
                             }
+                            .frame(maxWidth: .infinity)
                             .foregroundColor(selectedTab == 3 ? .white : .gray)
                         }
                         
-                        Spacer()
+                        // Hymnal Button
+                        Button(action: { selectedTab = 4 }) {
+                            VStack(spacing: 4) {
+                                Image(systemName: "music.note.list")
+                                    .font(.title2)
+                                Text("Hymnal")
+                                    .font(.caption)
+                            }
+                            .frame(maxWidth: .infinity)
+                            .foregroundColor(selectedTab == 4 ? .white : .gray)
+                        }
                     }
-                    .padding()
+                    .padding(.vertical, 8)
                     .background(Color(red: 0.1, green: 0.2, blue: 0.3).opacity(0.8))
                 }
             } else {
@@ -135,7 +144,7 @@ struct ContentView: View {
                         showMenu = false
                     }
                     
-                    MenuButton(title: "Preaching", icon: "speaker.wave.2.fill") {
+                    MenuButton(title: "Message", icon: "speaker.wave.2.fill") {
                         selectedTab = 3
                         showMenu = false
                     }
