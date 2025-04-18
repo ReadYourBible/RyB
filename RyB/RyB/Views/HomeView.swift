@@ -37,11 +37,12 @@ struct HomeView: View {
                             .shadow(radius: 10)
                         
                         Text("Many languages, but only one way to heaven.")
-                            .font(.title2)
+                            .font(.body)
                             .fontWeight(.medium)
                             .multilineTextAlignment(.center)
                             .foregroundColor(colorScheme == .dark ? .white : .black)
                             .padding(.horizontal)
+                            .dynamicTypeSize(/*@START_MENU_TOKEN@*/.medium/*@END_MENU_TOKEN@*/)
                     }
                     
                     // Feature Grid
@@ -108,4 +109,4 @@ extension HomeView.Feature: CaseIterable {}
 #Preview {
     HomeView()
         .background(Color(red: 0.1, green: 0.2, blue: 0.3))
-} 
+}
