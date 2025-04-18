@@ -4,6 +4,16 @@ struct BibleView: View {
     @Environment(\.colorScheme) var colorScheme
     @StateObject private var bibleManager = BibleManager()
     @State private var selectedTestament: BibleBook.Testament = .old
+    @State private var searchText = ""
+    
+    var filteredBooks: [BibleBook] {
+        let testamentFiltered = bibleManager.books.filter { $0.testament == selectedTestament }
+        if searchText.isEmpty {
+            return testamentFiltered
+        } else {
+            return testamentFiltered.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
+        }
+    }
     
     var body: some View {
         VStack {
@@ -74,10 +84,23 @@ struct BibleView: View {
                     .pickerStyle(SegmentedPickerStyle())
                     .padding()
                     
+                    // Search Bar
+                    HStack {
+                        Image(systemName: "magnifyingglass")
+                            .foregroundColor(colorScheme == .dark ? .white.opacity(0.7) : .black.opacity(0.7))
+                        TextField("Search books...", text: $searchText)
+                            .foregroundColor(colorScheme == .dark ? .white : .black)
+                            .autocapitalization(.none)
+                    }
+                    .padding()
+                    .background(colorScheme == .dark ? Color.white.opacity(0.1) : Color.black.opacity(0.1))
+                    .cornerRadius(10)
+                    .padding(.horizontal)
+                    
                     // Books List
                     ScrollView {
                         VStack(spacing: 10) {
-                            ForEach(bibleManager.books.filter { $0.testament == selectedTestament }) { book in
+                            ForEach(filteredBooks) { book in
                                 Button(action: {
                                     bibleManager.currentBook = book
                                 }) {
