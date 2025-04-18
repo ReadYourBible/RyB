@@ -6,6 +6,8 @@ class SingKJVManager: ObservableObject {
     @Published var currentBook: String?
     @Published var currentChapter: Int = 1
     @Published var isPlaying: Bool = false
+    @Published var currentTime: Double = 0
+    @Published var duration: Double = 0
     private var audioPlayer: AVPlayer?
     private var timeObserver: Any?
     
@@ -87,8 +89,16 @@ class SingKJVManager: ObservableObject {
         
         // Add time observer to update UI
         let interval = CMTime(seconds: 0.5, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
-        timeObserver = audioPlayer?.addPeriodicTimeObserver(forInterval: interval, queue: .main) { [weak self] _ in
+        timeObserver = audioPlayer?.addPeriodicTimeObserver(forInterval: interval, queue: .main) { [weak self] time in
+            self?.currentTime = time.seconds
             self?.objectWillChange.send()
+        }
+        
+        // Observe duration
+        playerItem.asset.loadValuesAsynchronously(forKeys: ["duration"]) { [weak self] in
+            DispatchQueue.main.async {
+                self?.duration = playerItem.asset.duration.seconds
+            }
         }
         
         // Set up now playing info
@@ -133,5 +143,10 @@ class SingKJVManager: ObservableObject {
         nowPlayingInfo[MPMediaItemPropertyArtist] = "Sing The KJV"
         
         MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
+    }
+    
+    func seek(to time: Double) {
+        let time = CMTime(seconds: time, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
+        audioPlayer?.seek(to: time)
     }
 } 

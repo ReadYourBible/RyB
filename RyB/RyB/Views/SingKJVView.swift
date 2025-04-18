@@ -24,6 +24,66 @@ struct SingKJVView: View {
                 .foregroundColor(colorScheme == .dark ? .white : .black)
                 .padding(.top)
             
+            // Playback Controls
+            if singKJVManager.isPlaying || singKJVManager.currentBook != nil {
+                VStack(spacing: 5) {
+                    // Progress Bar
+                    VStack(spacing: 2) {
+                        Slider(value: Binding(
+                            get: { singKJVManager.currentTime },
+                            set: { newValue in
+                                singKJVManager.seek(to: newValue)
+                            }
+                        ), in: 0...singKJVManager.duration)
+                        .accentColor(.blue)
+                        
+                        HStack {
+                            Text(formatTime(singKJVManager.currentTime))
+                                .font(.caption)
+                                .foregroundColor(colorScheme == .dark ? .white.opacity(0.7) : .black.opacity(0.7))
+                            Spacer()
+                            Text(formatTime(singKJVManager.duration))
+                                .font(.caption)
+                                .foregroundColor(colorScheme == .dark ? .white.opacity(0.7) : .black.opacity(0.7))
+                        }
+                    }
+                    .padding(.horizontal)
+                    
+                    // Control Buttons
+                    HStack(spacing: 20) {
+                        Button(action: {
+                            singKJVManager.stopPlaying()
+                        }) {
+                            Image(systemName: "stop.fill")
+                                .font(.title3)
+                                .foregroundColor(colorScheme == .dark ? .white : .black)
+                        }
+                        
+                        Button(action: {
+                            if singKJVManager.isPlaying {
+                                singKJVManager.pausePlaying()
+                            } else {
+                                singKJVManager.resumePlaying()
+                            }
+                        }) {
+                            Image(systemName: singKJVManager.isPlaying ? "pause.fill" : "play.fill")
+                                .font(.title2)
+                                .foregroundColor(colorScheme == .dark ? .white : .black)
+                        }
+                    }
+                    
+                    if let book = singKJVManager.currentBook {
+                        Text("\(book) \(singKJVManager.currentChapter)")
+                            .font(.subheadline)
+                            .foregroundColor(colorScheme == .dark ? .white : .black)
+                    }
+                }
+                .padding(.vertical, 8)
+                .background(colorScheme == .dark ? Color.white.opacity(0.1) : Color.black.opacity(0.1))
+                .cornerRadius(10)
+                .padding(.horizontal)
+            }
+            
             // Testament Picker
             Picker("Testament", selection: $selectedTestament) {
                 Text("Old Testament").tag(BibleBook.Testament.old)
@@ -68,6 +128,12 @@ struct SingKJVView: View {
             }
         }
         .padding(.vertical)
+    }
+    
+    private func formatTime(_ time: Double) -> String {
+        let minutes = Int(time) / 60
+        let seconds = Int(time) % 60
+        return String(format: "%d:%02d", minutes, seconds)
     }
 }
 
