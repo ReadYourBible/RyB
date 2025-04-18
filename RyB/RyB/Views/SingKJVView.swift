@@ -2,7 +2,7 @@ import SwiftUI
 
 struct SingKJVView: View {
     @Environment(\.colorScheme) var colorScheme
-    @StateObject private var singKJVManager = SingKJVManager()
+    @ObservedObject var singKJVManager: SingKJVManager
     @StateObject private var bibleManager = BibleManager()
     @State private var selectedTestament: BibleBook.Testament = .old
     @State private var searchText = ""
@@ -120,6 +120,6 @@ struct ChapterListView: View {
 }
 
 #Preview {
-    SingKJVView()
+    SingKJVView(singKJVManager: SingKJVManager())
         .background(Color(red: 0.1, green: 0.2, blue: 0.3))
 } 

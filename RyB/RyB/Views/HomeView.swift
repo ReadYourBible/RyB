@@ -3,6 +3,7 @@ import SwiftUI
 struct HomeView: View {
     @Environment(\.colorScheme) var colorScheme
     @State private var selectedFeature: Feature?
+    @StateObject private var singKJVManager = SingKJVManager()
     
     enum Feature: String, Identifiable {
         case singKJV = "Sing The KJV"
@@ -63,7 +64,7 @@ struct HomeView: View {
     private func destinationView(for feature: Feature) -> some View {
         switch feature {
         case .singKJV:
-            SingKJVView()
+            SingKJVView(singKJVManager: singKJVManager)
         }
     }
 }
