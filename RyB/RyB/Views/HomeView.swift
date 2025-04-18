@@ -6,30 +6,18 @@ struct HomeView: View {
     
     enum Feature: String, Identifiable {
         case singKJV = "Sing The KJV"
-        case bible = "Bible"
-        case dailyVerse = "Daily Verse"
-        case preaching = "Message"
-        case hymnal = "Hymnal"
         
         var id: String { self.rawValue }
         
         var icon: String {
             switch self {
             case .singKJV: return "music.note"
-            case .bible: return "book.fill"
-            case .dailyVerse: return "quote.bubble.fill"
-            case .preaching: return "speaker.wave.2.fill"
-            case .hymnal: return "music.note.list"
             }
         }
         
         var description: String {
             switch self {
             case .singKJV: return "Listen to the Bible in song"
-            case .bible: return "Read the King James Bible"
-            case .dailyVerse: return "Get inspired daily"
-            case .preaching: return "Listen to messages"
-            case .hymnal: return "Browse hymns"
             }
         }
     }
@@ -76,14 +64,6 @@ struct HomeView: View {
         switch feature {
         case .singKJV:
             SingKJVView()
-        case .bible:
-            BibleView()
-        case .dailyVerse:
-            DailyVerseView()
-        case .preaching:
-            PreachingView()
-        case .hymnal:
-            HymnalView()
         }
     }
 }
