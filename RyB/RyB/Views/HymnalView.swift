@@ -2,6 +2,7 @@ import SwiftUI
 
 struct HymnalView: View {
     @State private var searchText = ""
+    @Environment(\.colorScheme) var colorScheme
     
     // Sample hymn data - in a real app, this would come from a data source
     private let hymns = [
@@ -31,19 +32,19 @@ struct HymnalView: View {
                 Text("Hymnal")
                     .font(.title)
                     .fontWeight(.bold)
-                    .foregroundColor(.white)
+                    .foregroundColor(colorScheme == .dark ? .white : .black)
                     .padding(.top)
                 
                 // Search Bar
                 HStack {
                     Image(systemName: "magnifyingglass")
-                        .foregroundColor(.white.opacity(0.7))
+                        .foregroundColor(colorScheme == .dark ? .white.opacity(0.7) : .black.opacity(0.7))
                     TextField("Search hymns...", text: $searchText)
-                        .foregroundColor(.white)
+                        .foregroundColor(colorScheme == .dark ? .white : .black)
                         .autocapitalization(.none)
                 }
                 .padding()
-                .background(Color.white.opacity(0.1))
+                .background(colorScheme == .dark ? Color.white.opacity(0.1) : Color.black.opacity(0.1))
                 .cornerRadius(10)
                 .padding(.horizontal)
                 
@@ -52,16 +53,16 @@ struct HymnalView: View {
                     ForEach(filteredHymns, id: \.self) { hymn in
                         HStack {
                             Text("\(hymns.firstIndex(of: hymn)! + 1).")
-                                .foregroundColor(.white)
+                                .foregroundColor(colorScheme == .dark ? .white : .black)
                             Text(hymn)
-                                .foregroundColor(.white)
+                                .foregroundColor(colorScheme == .dark ? .white : .black)
                             Spacer()
                             Image(systemName: "chevron.right")
-                                .foregroundColor(.white.opacity(0.7))
+                                .foregroundColor(colorScheme == .dark ? .white.opacity(0.7) : .black.opacity(0.7))
                         }
                         .padding(.horizontal)
                         .padding(.vertical, 8)
-                        .background(Color.white.opacity(0.1))
+                        .background(colorScheme == .dark ? Color.white.opacity(0.1) : Color.black.opacity(0.1))
                         .cornerRadius(8)
                     }
                 }

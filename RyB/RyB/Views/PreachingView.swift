@@ -1,16 +1,18 @@
 import SwiftUI
 
 struct PreachingView: View {
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
         VStack {
             Text("Preaching Content")
                 .font(.title)
                 .fontWeight(.bold)
-                .foregroundColor(.white)
+                .foregroundColor(colorScheme == .dark ? .white : .black)
             
             // TODO: Add preaching content implementation
             Text("Preaching content will be implemented here")
-                .foregroundColor(.white)
+                .foregroundColor(colorScheme == .dark ? .white : .black)
                 .padding()
         }
     }

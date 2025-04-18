@@ -13,26 +13,27 @@ struct ShareSheet: UIViewControllerRepresentable {
 
 struct DailyVerseView: View {
     @State private var showingShareSheet = false
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         VStack(spacing: 20) {
             Text("Daily Verse")
                 .font(.title)
                 .fontWeight(.bold)
-                .foregroundColor(.white)
+                .foregroundColor(colorScheme == .dark ? .white : .black)
             
             VStack(spacing: 15) {
                 // TODO: Dynamic daily Bible verse
                 Text("John 3:16")
                     .font(.headline)
-                    .foregroundColor(.white.opacity(0.8))
+                    .foregroundColor(colorScheme == .dark ? .white.opacity(0.8) : .black.opacity(0.8))
                 
                 Text("For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life.")
                     .font(.body)
                     .multilineTextAlignment(.center)
-                    .foregroundColor(.white)
+                    .foregroundColor(colorScheme == .dark ? .white : .black)
                     .padding()
-                    .background(Color.white.opacity(0.1))
+                    .background(colorScheme == .dark ? Color.white.opacity(0.1) : Color.black.opacity(0.1))
                     .cornerRadius(10)
                 
                 Button(action: {
@@ -42,7 +43,7 @@ struct DailyVerseView: View {
                         Image(systemName: "square.and.arrow.up")
                         Text("Share")
                     }
-                    .foregroundColor(.white)
+                    .foregroundColor(colorScheme == .dark ? .white : .black)
                     .padding()
                     .background(Color.blue.opacity(0.3))
                     .cornerRadius(8)

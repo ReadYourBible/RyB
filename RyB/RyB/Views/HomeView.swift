@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct HomeView: View {
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
         VStack(spacing: 30) {
             Image("AppLogo")
@@ -14,7 +16,7 @@ struct HomeView: View {
                 .font(.title2)
                 .fontWeight(.medium)
                 .multilineTextAlignment(.center)
-                .foregroundColor(.white)
+                .foregroundColor(colorScheme == .dark ? .white : .black)
                 .padding(.horizontal)
         }
     }
