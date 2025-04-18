@@ -3,7 +3,7 @@ import AVFoundation
 import MediaPlayer
 
 class SingKJVManager: ObservableObject {
-    @Published var currentBook: BibleBook?
+    @Published var currentBook: String?
     @Published var currentChapter: Int = 1
     @Published var isPlaying: Bool = false
     private var audioPlayer: AVPlayer?
@@ -97,6 +97,7 @@ class SingKJVManager: ObservableObject {
         audioPlayer?.play()
         isPlaying = true
         currentChapter = chapter
+        currentBook = book
     }
     
     func pausePlaying() {
@@ -113,6 +114,8 @@ class SingKJVManager: ObservableObject {
         audioPlayer?.pause()
         audioPlayer = nil
         isPlaying = false
+        currentChapter = 1
+        currentBook = nil
         removeTimeObserver()
     }
     

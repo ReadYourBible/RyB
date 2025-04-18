@@ -88,7 +88,7 @@ struct ChapterListView: View {
                 VStack(alignment: .leading, spacing: 15) {
                     ForEach(1...book.chapters, id: \.self) { chapter in
                         Button(action: {
-                            if singKJVManager.isPlaying && singKJVManager.currentChapter == chapter {
+                            if singKJVManager.isPlaying && singKJVManager.currentChapter == chapter && singKJVManager.currentBook == book.name {
                                 singKJVManager.pausePlaying()
                             } else {
                                 singKJVManager.playSong(book: book.name, chapter: chapter)
@@ -99,13 +99,13 @@ struct ChapterListView: View {
                                     .font(.headline)
                                     .foregroundColor(colorScheme == .dark ? .white : .black)
                                 Spacer()
-                                Image(systemName: singKJVManager.isPlaying && singKJVManager.currentChapter == chapter ? "pause.fill" : "play.fill")
+                                Image(systemName: singKJVManager.isPlaying && singKJVManager.currentChapter == chapter && singKJVManager.currentBook == book.name ? "pause.fill" : "play.fill")
                                     .foregroundColor(colorScheme == .dark ? .white : .black)
                             }
                             .padding()
                             .background(
                                 RoundedRectangle(cornerRadius: 8)
-                                    .fill(singKJVManager.isPlaying && singKJVManager.currentChapter == chapter ?
+                                    .fill(singKJVManager.isPlaying && singKJVManager.currentChapter == chapter && singKJVManager.currentBook == book.name ?
                                           Color.blue.opacity(0.2) :
                                             (colorScheme == .dark ? Color.white.opacity(0.1) : Color.black.opacity(0.1)))
                             )
