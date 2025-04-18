@@ -1,6 +1,30 @@
 import SwiftUI
 
 struct HymnalView: View {
+    @State private var searchText = ""
+    
+    // Sample hymn data - in a real app, this would come from a data source
+    private let hymns = [
+        "Amazing Grace",
+        "How Great Thou Art",
+        "Great Is Thy Faithfulness",
+        "Blessed Assurance",
+        "It Is Well With My Soul",
+        "In Christ Alone",
+        "Be Thou My Vision",
+        "Holy, Holy, Holy",
+        "The Old Rugged Cross",
+        "What a Friend We Have in Jesus"
+    ]
+    
+    var filteredHymns: [String] {
+        if searchText.isEmpty {
+            return hymns
+        } else {
+            return hymns.filter { $0.localizedCaseInsensitiveContains(searchText) }
+        }
+    }
+    
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
@@ -10,13 +34,26 @@ struct HymnalView: View {
                     .foregroundColor(.white)
                     .padding(.top)
                 
-                // Sample Hymn List
+                // Search Bar
+                HStack {
+                    Image(systemName: "magnifyingglass")
+                        .foregroundColor(.white.opacity(0.7))
+                    TextField("Search hymns...", text: $searchText)
+                        .foregroundColor(.white)
+                        .autocapitalization(.none)
+                }
+                .padding()
+                .background(Color.white.opacity(0.1))
+                .cornerRadius(10)
+                .padding(.horizontal)
+                
+                // Hymn List
                 VStack(alignment: .leading, spacing: 15) {
-                    ForEach(1...10, id: \.self) { number in
+                    ForEach(filteredHymns, id: \.self) { hymn in
                         HStack {
-                            Text("\(number).")
+                            Text("\(hymns.firstIndex(of: hymn)! + 1).")
                                 .foregroundColor(.white)
-                            Text("Amazing Grace")
+                            Text(hymn)
                                 .foregroundColor(.white)
                             Spacer()
                             Image(systemName: "chevron.right")
