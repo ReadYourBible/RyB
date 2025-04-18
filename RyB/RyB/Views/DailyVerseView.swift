@@ -12,6 +12,7 @@ struct ShareSheet: UIViewControllerRepresentable {
 }
 
 struct DailyVerseView: View {
+    @StateObject private var verseManager = DailyVerseManager()
     @State private var showingShareSheet = false
     @Environment(\.colorScheme) var colorScheme
     
@@ -23,33 +24,37 @@ struct DailyVerseView: View {
                 .foregroundColor(colorScheme == .dark ? .white : .black)
             
             VStack(spacing: 15) {
-                // TODO: Dynamic daily Bible verse
-                Text("John 3:16")
-                    .font(.headline)
-                    .foregroundColor(colorScheme == .dark ? .white.opacity(0.8) : .black.opacity(0.8))
-                
-                Text("For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life.")
-                    .font(.body)
-                    .multilineTextAlignment(.center)
-                    .foregroundColor(colorScheme == .dark ? .white : .black)
-                    .padding()
-                    .background(colorScheme == .dark ? Color.white.opacity(0.1) : Color.black.opacity(0.1))
-                    .cornerRadius(10)
-                
-                Button(action: {
-                    showingShareSheet = true
-                }) {
-                    HStack {
-                        Image(systemName: "square.and.arrow.up")
-                        Text("Share")
+                if let verse = verseManager.currentVerse {
+                    Text(verse.reference)
+                        .font(.headline)
+                        .foregroundColor(colorScheme == .dark ? .white.opacity(0.8) : .black.opacity(0.8))
+                    
+                    Text(verse.text)
+                        .font(.body)
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(colorScheme == .dark ? .white : .black)
+                        .padding()
+                        .background(colorScheme == .dark ? Color.white.opacity(0.1) : Color.black.opacity(0.1))
+                        .cornerRadius(10)
+                    
+                    Button(action: {
+                        showingShareSheet = true
+                    }) {
+                        HStack {
+                            Image(systemName: "square.and.arrow.up")
+                            Text("Share")
+                        }
+                        .foregroundColor(colorScheme == .dark ? .white : .black)
+                        .padding()
+                        .background(Color.blue.opacity(0.3))
+                        .cornerRadius(8)
                     }
-                    .foregroundColor(colorScheme == .dark ? .white : .black)
-                    .padding()
-                    .background(Color.blue.opacity(0.3))
-                    .cornerRadius(8)
-                }
-                .sheet(isPresented: $showingShareSheet) {
-                    ShareSheet(activityItems: ["John 3:16 - For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life."])
+                    .sheet(isPresented: $showingShareSheet) {
+                        ShareSheet(activityItems: ["\(verse.reference)\n\n\(verse.text)"])
+                    }
+                } else {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle())
                 }
             }
             .padding()
@@ -57,10 +62,14 @@ struct DailyVerseView: View {
             Spacer()
         }
         .padding()
+        .onAppear {
+            // Refresh the verse when the view appears
+            verseManager.loadDailyVerse()
+        }
     }
 }
 
 #Preview {
     DailyVerseView()
-        .background(Color(red: 0.1, green: 0.2, blue: 0.3))
+        .preferredColorScheme(.dark)
 } 
