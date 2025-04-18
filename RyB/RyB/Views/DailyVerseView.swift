@@ -1,6 +1,19 @@
 import SwiftUI
 
+struct ShareSheet: UIViewControllerRepresentable {
+    let activityItems: [Any]
+    
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        let controller = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+        return controller
+    }
+    
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
+}
+
 struct DailyVerseView: View {
+    @State private var showingShareSheet = false
+    
     var body: some View {
         VStack(spacing: 20) {
             Text("Daily Verse")
@@ -23,7 +36,7 @@ struct DailyVerseView: View {
                     .cornerRadius(10)
                 
                 Button(action: {
-                    // Share functionality will be added later
+                    showingShareSheet = true
                 }) {
                     HStack {
                         Image(systemName: "square.and.arrow.up")
@@ -33,6 +46,9 @@ struct DailyVerseView: View {
                     .padding()
                     .background(Color.blue.opacity(0.3))
                     .cornerRadius(8)
+                }
+                .sheet(isPresented: $showingShareSheet) {
+                    ShareSheet(activityItems: ["John 3:16 - For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life."])
                 }
             }
             .padding()
