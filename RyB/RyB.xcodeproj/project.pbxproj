@@ -29,9 +29,22 @@
 		C20016F82DB1591200EB3CF5 /* RyBUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RyBUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		C2345D612DB2A81700A79ACC /* Exceptions for "RyB" folder in "RyB" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = C20016E02DB1591000EB3CF5 /* RyB */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		C20016E32DB1591000EB3CF5 /* RyB */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				C2345D612DB2A81700A79ACC /* Exceptions for "RyB" folder in "RyB" target */,
+			);
 			path = RyB;
 			sourceTree = "<group>";
 		};
@@ -400,6 +413,7 @@
 				DEVELOPMENT_TEAM = RF4V86H8MA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = RyB/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = RyB;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -431,6 +445,7 @@
 				DEVELOPMENT_TEAM = RF4V86H8MA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = RyB/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = RyB;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
