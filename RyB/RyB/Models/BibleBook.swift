@@ -44,7 +44,7 @@ class BibleManager: ObservableObject {
         BibleBook(name: "Nehemiah", chapters: 13, testament: .old),
         BibleBook(name: "Esther", chapters: 10, testament: .old),
         BibleBook(name: "Job", chapters: 42, testament: .old),
-        BibleBook(name: "Psalms", chapters: 150, testament: .old),
+        BibleBook(name: "Psalm", chapters: 150, testament: .old),
         BibleBook(name: "Proverbs", chapters: 31, testament: .old),
         BibleBook(name: "Ecclesiastes", chapters: 12, testament: .old),
         BibleBook(name: "Song of Solomon", chapters: 8, testament: .old),
