@@ -98,4 +98,4 @@ class DailyVerseManager: ObservableObject {
             print("Error loading verses: \(error.localizedDescription)")
         }
     }
-} 
+}

@@ -7,18 +7,21 @@ struct HomeView: View {
     
     enum Feature: String, Identifiable {
         case singKJV = "Sing The KJV"
+        case about = "About"
         
         var id: String { self.rawValue }
         
         var icon: String {
             switch self {
             case .singKJV: return "music.note"
+            case .about: return "info.circle"
             }
         }
         
         var description: String {
             switch self {
             case .singKJV: return "Listen to the Bible in song"
+            case .about: return "Learn more about the app"
             }
         }
     }
@@ -66,6 +69,8 @@ struct HomeView: View {
         switch feature {
         case .singKJV:
             SingKJVView(singKJVManager: singKJVManager)
+        case .about:
+            AboutView()
         }
     }
 }
