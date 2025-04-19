@@ -22,7 +22,6 @@ struct BibleBook: Identifiable, Hashable {
 
 class BibleManager: ObservableObject {
     @Published var currentBook: BibleBook?
-    @Published var currentChapter: Int = 1
     
     let books: [BibleBook] = [
         // Old Testament
@@ -95,22 +94,4 @@ class BibleManager: ObservableObject {
         BibleBook(name: "Jude", chapters: 1, testament: .new),
         BibleBook(name: "Revelation", chapters: 22, testament: .new)
     ]
-    
-    func getPreviousBook() -> BibleBook? {
-        guard let currentBook = currentBook,
-              let currentIndex = books.firstIndex(of: currentBook),
-              currentIndex > 0 else {
-            return nil
-        }
-        return books[currentIndex - 1]
-    }
-    
-    func getNextBook() -> BibleBook? {
-        guard let currentBook = currentBook,
-              let currentIndex = books.firstIndex(of: currentBook),
-              currentIndex < books.count - 1 else {
-            return nil
-        }
-        return books[currentIndex + 1]
-    }
 } 
