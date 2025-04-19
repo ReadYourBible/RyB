@@ -188,16 +188,30 @@ struct BibleView: View {
     private func loadChapterContent() {
         guard let currentBook = bibleManager.currentBook else { return }
         
-        // Format the book name for the file path
-        let bookName = currentBook.name.lowercased().replacingOccurrences(of: " ", with: "-")
-        let chapterPath = "Resources/kjv/\(bookName)/\(bookName)-\(selectedChapter).txt"
+        // Convert book name to match file naming convention
+        var bookName = currentBook.name.lowercased()
+            .replacingOccurrences(of: " ", with: "-")
+            .replacingOccurrences(of: "i-", with: "1-")
+            .replacingOccurrences(of: "ii-", with: "2-")
+            .replacingOccurrences(of: "iii-", with: "3-")
         
-        do {
-            if let content = try? String(contentsOfFile: chapterPath, encoding: .utf8) {
+        let chapterNumber = String(format: "%02d", selectedChapter)
+        let fileName = "\(bookName)-\(chapterNumber)"
+        
+        print("Attempting to load file: \(fileName).txt")
+        
+        if let path = Bundle.main.path(forResource: fileName, ofType: "txt") {
+            print("Found file at path: \(path)")
+            do {
+                let content = try String(contentsOfFile: path, encoding: .utf8)
                 chapterContent = content
-            } else {
-                chapterContent = "Error loading chapter content"
+            } catch {
+                print("Error loading file: \(error)")
+                chapterContent = "Error loading chapter content: \(error.localizedDescription)"
             }
+        } else {
+            print("Could not find file: \(fileName).txt")
+            chapterContent = "Could not find chapter file"
         }
     }
     
