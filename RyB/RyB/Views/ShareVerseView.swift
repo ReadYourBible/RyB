@@ -15,6 +15,7 @@ struct ShareVerseView: View {
     @StateObject private var verseManager = ShareVerseManager()
     @State private var showingShareSheet = false
     @Environment(\.colorScheme) var colorScheme
+    @Binding var verseTabClicked: Bool
     
     var body: some View {
         VStack(spacing: 20) {
@@ -36,36 +37,18 @@ struct ShareVerseView: View {
                         .padding()
                         .background(colorScheme == .dark ? Color.white.opacity(0.1) : Color.black.opacity(0.1))
                         .cornerRadius(10)
-                        .onTapGesture {
-                            verseManager.loadNewVerse()
-                        }
                     
-                    HStack(spacing: 20) {
-                        Button(action: {
-                            verseManager.loadNewVerse()
-                        }) {
-                            HStack {
-                                Image(systemName: "arrow.clockwise")
-                                Text("New Verse")
-                            }
-                            .foregroundColor(colorScheme == .dark ? .white : .black)
-                            .padding()
-                            .background(Color.blue.opacity(0.3))
-                            .cornerRadius(8)
+                    Button(action: {
+                        showingShareSheet = true
+                    }) {
+                        HStack {
+                            Image(systemName: "square.and.arrow.up")
+                            Text("Share")
                         }
-                        
-                        Button(action: {
-                            showingShareSheet = true
-                        }) {
-                            HStack {
-                                Image(systemName: "square.and.arrow.up")
-                                Text("Share")
-                            }
-                            .foregroundColor(colorScheme == .dark ? .white : .black)
-                            .padding()
-                            .background(Color.blue.opacity(0.3))
-                            .cornerRadius(8)
-                        }
+                        .foregroundColor(colorScheme == .dark ? .white : .black)
+                        .padding()
+                        .background(Color.blue.opacity(0.3))
+                        .cornerRadius(8)
                     }
                     .sheet(isPresented: $showingShareSheet) {
                         ShareSheet(activityItems: ["\(verse.reference)\n\n\(verse.text)"])
@@ -80,6 +63,9 @@ struct ShareVerseView: View {
             Spacer()
         }
         .padding()
+        .onChange(of: verseTabClicked) { _ in
+            verseManager.loadNewVerse()
+        }
         .onAppear {
             verseManager.loadNewVerse()
         }
@@ -87,6 +73,6 @@ struct ShareVerseView: View {
 }
 
 #Preview {
-    ShareVerseView()
+    ShareVerseView(verseTabClicked: .constant(false))
         .preferredColorScheme(.dark)
 } 

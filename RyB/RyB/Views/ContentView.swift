@@ -13,6 +13,7 @@ struct ContentView: View {
     @State private var logoScale: CGFloat = 0.5
     @State private var logoOpacity: Double = 0
     @State private var selectedTab = 0
+    @State private var verseTabClicked = false
     
     var body: some View {
         ZStack {
@@ -56,7 +57,7 @@ struct ContentView: View {
                         BibleView()
                             .tag(1)
                         
-                        ShareVerseView()
+                        ShareVerseView(verseTabClicked: $verseTabClicked)
                             .tag(2)
                         
                         PreachingView()
@@ -93,7 +94,10 @@ struct ContentView: View {
                         }
                         
                         // Daily Verse Button
-                        Button(action: { selectedTab = 2 }) {
+                        Button(action: { 
+                            selectedTab = 2
+                            verseTabClicked.toggle()
+                        }) {
                             VStack(spacing: 4) {
                                 Image(systemName: "quote.bubble.fill")
                                     .font(.title2)
