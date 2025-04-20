@@ -58,7 +58,7 @@ struct BibleWayToHeavenView: View {
                     SectionCard(section: section, colorScheme: colorScheme)
                 }
                 
-                Link("Find a Local Church", destination: URL(string: "https://independentbaptist.church/")!)
+                Link("Find a Local Church", destination: URL(string: "https://militarygetsaved.tripod.com/findchurch.html")!)
                     .font(.headline)
                     .foregroundColor(.blue)
                     .padding()
