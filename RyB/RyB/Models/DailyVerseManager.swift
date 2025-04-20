@@ -49,53 +49,38 @@ class DailyVerseManager: ObservableObject {
     }
     
     private func loadAllVerses() {
-        // Get the path to the KJV directory in the app bundle
-        guard let kjvPath = Bundle.main.path(forResource: "KJV", ofType: nil, inDirectory: nil) else {
-            print("Could not find KJV directory in bundle")
-            return
-        }
+        // Load verses only from Psalms, Ecclesiastes, and Proverbs
+        let allowedBooks = ["Psalms", "Ecclesiastes", "Proverbs"]
         
-        loadVersesFromPath(kjvPath)
-    }
-    
-    private func loadVersesFromPath(_ path: String) {
-        let fileManager = FileManager.default
-        
-        do {
-            // Get all book directories
-            let bookDirectories = try fileManager.contentsOfDirectory(atPath: path)
+        for book in BibleManager().books {
+            // Only process allowed books
+            guard allowedBooks.contains(book.name) else { continue }
             
-            for bookDir in bookDirectories {
-                let bookPath = (path as NSString).appendingPathComponent(bookDir)
+            for chapter in 1...book.chapters {
+                let bookName = book.name.lowercased()
+                let chapterNumber = String(format: "%02d", chapter)
+                let fileName = "\(bookName)-\(chapterNumber)"
                 
-                // Get all chapter files in the book directory
-                let chapterFiles = try fileManager.contentsOfDirectory(atPath: bookPath)
-                
-                for chapterFile in chapterFiles {
-                    let chapterPath = (bookPath as NSString).appendingPathComponent(chapterFile)
-                    
-                    // Read the chapter file
-                    if let content = try? String(contentsOfFile: chapterPath, encoding: .utf8) {
+                if let path = Bundle.main.path(forResource: fileName, ofType: "txt") {
+                    do {
+                        let content = try String(contentsOfFile: path, encoding: .utf8)
                         let lines = content.components(separatedBy: .newlines)
                         
                         // Create verses from the lines
                         for (index, line) in lines.enumerated() {
                             if !line.isEmpty {
-                                let bookName = bookDir.components(separatedBy: "-").last ?? ""
-                                let chapterNumber = chapterFile.components(separatedBy: "-").last?.components(separatedBy: ".").first ?? ""
-                                let reference = "\(bookName.capitalized) \(chapterNumber):\(index + 1)"
-                                
+                                let reference = "\(book.name) \(chapter):\(index + 1)"
                                 let verse = Verse(reference: reference, text: line)
                                 allVerses.append(verse)
                             }
                         }
+                    } catch {
+                        print("Error loading chapter \(chapter) of \(book.name): \(error)")
                     }
                 }
             }
-            
-            print("Successfully loaded \(allVerses.count) verses from path: \(path)")
-        } catch {
-            print("Error loading verses: \(error.localizedDescription)")
         }
+        
+        print("Successfully loaded \(allVerses.count) verses from Psalms, Ecclesiastes, and Proverbs")
     }
 }
