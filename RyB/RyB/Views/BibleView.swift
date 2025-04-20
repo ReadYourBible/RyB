@@ -190,7 +190,8 @@ struct BibleView: View {
         
         // Convert book name to match file naming convention
         let bookName = currentBook.name.lowercased()
-
+            .replacingOccurrences(of: " ", with: "-")  // Replace spaces with hyphens
+        
         let chapterNumber = String(format: "%02d", selectedChapter)
         let fileName = "\(bookName)-\(chapterNumber)"
         

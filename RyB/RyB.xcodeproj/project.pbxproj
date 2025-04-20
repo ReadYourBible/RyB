@@ -79,7 +79,6 @@
 		C27247392DB461BD00B1CD06 /* john-18.txt in Resources */ = {isa = PBXBuildFile; fileRef = C272462A2DB461BD00B1CD06 /* john-18.txt */; };
 		C272473A2DB461BD00B1CD06 /* matthew-28.txt in Resources */ = {isa = PBXBuildFile; fileRef = C27245ED2DB461BD00B1CD06 /* matthew-28.txt */; };
 		C272473B2DB461BD00B1CD06 /* ezekiel-13.txt in Resources */ = {isa = PBXBuildFile; fileRef = C27245512DB461BD00B1CD06 /* ezekiel-13.txt */; };
-		C272473C2DB461BD00B1CD06 /* s.sh in Resources */ = {isa = PBXBuildFile; fileRef = C27246F22DB461BD00B1CD06 /* s.sh */; };
 		C272473D2DB461BD00B1CD06 /* genesis-36.txt in Resources */ = {isa = PBXBuildFile; fileRef = C272422D2DB461BD00B1CD06 /* genesis-36.txt */; };
 		C272473E2DB461BD00B1CD06 /* acts-11.txt in Resources */ = {isa = PBXBuildFile; fileRef = C27246392DB461BD00B1CD06 /* acts-11.txt */; };
 		C272473F2DB461BD00B1CD06 /* psalms-17.txt in Resources */ = {isa = PBXBuildFile; fileRef = C272440A2DB461BD00B1CD06 /* psalms-17.txt */; };
@@ -2409,7 +2408,6 @@
 		C27246ED2DB461BD00B1CD06 /* revelation-20.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "revelation-20.txt"; sourceTree = "<group>"; };
 		C27246EE2DB461BD00B1CD06 /* revelation-21.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "revelation-21.txt"; sourceTree = "<group>"; };
 		C27246EF2DB461BD00B1CD06 /* revelation-22.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "revelation-22.txt"; sourceTree = "<group>"; };
-		C27246F22DB461BD00B1CD06 /* s.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = s.sh; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -4217,7 +4215,6 @@
 			isa = PBXGroup;
 			children = (
 				C27246F12DB461BD00B1CD06 /* kjv */,
-				C27246F22DB461BD00B1CD06 /* s.sh */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -4414,7 +4411,6 @@
 				C27247392DB461BD00B1CD06 /* john-18.txt in Resources */,
 				C272473A2DB461BD00B1CD06 /* matthew-28.txt in Resources */,
 				C272473B2DB461BD00B1CD06 /* ezekiel-13.txt in Resources */,
-				C272473C2DB461BD00B1CD06 /* s.sh in Resources */,
 				C272473D2DB461BD00B1CD06 /* genesis-36.txt in Resources */,
 				C272473E2DB461BD00B1CD06 /* acts-11.txt in Resources */,
 				C272473F2DB461BD00B1CD06 /* psalms-17.txt in Resources */,
@@ -5715,6 +5711,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = RF4V86H8MA;
@@ -5736,6 +5733,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = byteram.co.RyB;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -5747,6 +5745,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = RF4V86H8MA;
@@ -5768,6 +5767,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = byteram.co.RyB;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
