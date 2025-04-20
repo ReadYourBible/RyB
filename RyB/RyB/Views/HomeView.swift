@@ -23,7 +23,7 @@ struct HomeView: View {
         var description: String {
             switch self {
             case .singKJV: return "Listen to the Bible in song"
-            case .bibleWay: return "Learn the path to salvation"
+            case .bibleWay: return "Learn the way to salvation"
             case .about: return "Learn more about the app"
             }
         }
