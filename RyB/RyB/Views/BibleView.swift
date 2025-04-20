@@ -84,7 +84,7 @@ struct BibleView: View {
                             .font(.title2)
                             .fontWeight(.bold)
                             .foregroundColor(.white)
-                            .frame(width: 160, height: 44)
+                            .frame(width: 180, height: 44)
                         
                         Button(action: {
                             if selectedChapter < currentBook.chapters {
