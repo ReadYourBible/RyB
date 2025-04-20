@@ -189,12 +189,8 @@ struct BibleView: View {
         guard let currentBook = bibleManager.currentBook else { return }
         
         // Convert book name to match file naming convention
-        var bookName = currentBook.name.lowercased()
-            .replacingOccurrences(of: " ", with: "-")
-            .replacingOccurrences(of: "i-", with: "1-")
-            .replacingOccurrences(of: "ii-", with: "2-")
-            .replacingOccurrences(of: "iii-", with: "3-")
-        
+        let bookName = currentBook.name.lowercased()
+
         let chapterNumber = String(format: "%02d", selectedChapter)
         let fileName = "\(bookName)-\(chapterNumber)"
         
