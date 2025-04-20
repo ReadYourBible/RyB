@@ -11,14 +11,14 @@ struct ShareSheet: UIViewControllerRepresentable {
     func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
 }
 
-struct DailyVerseView: View {
-    @StateObject private var verseManager = DailyVerseManager()
+struct ShareVerseView: View {
+    @StateObject private var verseManager = ShareVerseManager()
     @State private var showingShareSheet = false
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         VStack(spacing: 20) {
-            Text("Daily Verse")
+            Text("Share a Verse")
                 .font(.title)
                 .fontWeight(.bold)
                 .foregroundColor(colorScheme == .dark ? .white : .black)
@@ -36,18 +36,36 @@ struct DailyVerseView: View {
                         .padding()
                         .background(colorScheme == .dark ? Color.white.opacity(0.1) : Color.black.opacity(0.1))
                         .cornerRadius(10)
-                    
-                    Button(action: {
-                        showingShareSheet = true
-                    }) {
-                        HStack {
-                            Image(systemName: "square.and.arrow.up")
-                            Text("Share")
+                        .onTapGesture {
+                            verseManager.loadNewVerse()
                         }
-                        .foregroundColor(colorScheme == .dark ? .white : .black)
-                        .padding()
-                        .background(Color.blue.opacity(0.3))
-                        .cornerRadius(8)
+                    
+                    HStack(spacing: 20) {
+                        Button(action: {
+                            verseManager.loadNewVerse()
+                        }) {
+                            HStack {
+                                Image(systemName: "arrow.clockwise")
+                                Text("New Verse")
+                            }
+                            .foregroundColor(colorScheme == .dark ? .white : .black)
+                            .padding()
+                            .background(Color.blue.opacity(0.3))
+                            .cornerRadius(8)
+                        }
+                        
+                        Button(action: {
+                            showingShareSheet = true
+                        }) {
+                            HStack {
+                                Image(systemName: "square.and.arrow.up")
+                                Text("Share")
+                            }
+                            .foregroundColor(colorScheme == .dark ? .white : .black)
+                            .padding()
+                            .background(Color.blue.opacity(0.3))
+                            .cornerRadius(8)
+                        }
                     }
                     .sheet(isPresented: $showingShareSheet) {
                         ShareSheet(activityItems: ["\(verse.reference)\n\n\(verse.text)"])
@@ -63,13 +81,12 @@ struct DailyVerseView: View {
         }
         .padding()
         .onAppear {
-            // Refresh the verse when the view appears
-            verseManager.loadDailyVerse()
+            verseManager.loadNewVerse()
         }
     }
 }
 
 #Preview {
-    DailyVerseView()
+    ShareVerseView()
         .preferredColorScheme(.dark)
 } 

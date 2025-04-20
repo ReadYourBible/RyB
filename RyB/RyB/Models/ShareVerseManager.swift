@@ -1,47 +1,29 @@
 import Foundation
+import UIKit
 
 struct Verse {
     let reference: String
     let text: String
 }
 
-class DailyVerseManager: ObservableObject {
+class ShareVerseManager: ObservableObject {
     @Published var currentVerse: Verse?
     private var allVerses: [Verse] = []
-    private var lastLoadedDate: Date?
     
     init() {
-        loadDailyVerse()
+        loadAllVerses()
     }
     
-    @objc private func appDidBecomeActive() {
-        // Check if we need to update the verse for a new day
-        if let lastDate = lastLoadedDate {
-            let calendar = Calendar.current
-            if !calendar.isDate(lastDate, inSameDayAs: Date()) {
-                loadDailyVerse()
-            }
-        }
-    }
-    
-    public func loadDailyVerse() {
+    public func loadNewVerse() {
         // Check if we need to load verses
         if allVerses.isEmpty {
             loadAllVerses()
         }
         
-        // Get today's date components
-        let calendar = Calendar.current
-        let today = Date()
-        let components = calendar.dateComponents([.year, .month, .day], from: today)
-        
-        // Use the date components to generate a consistent seed for the day
-        let seed = (components.year ?? 0) * 10000 + (components.month ?? 0) * 100 + (components.day ?? 0)
-        
-        // Select a verse based on the seed
+        // Select a random verse
         if !allVerses.isEmpty {
-            let index = abs(seed) % allVerses.count
-            currentVerse = allVerses[index]
+            let randomIndex = Int.random(in: 0..<allVerses.count)
+            currentVerse = allVerses[randomIndex]
         } else {
             // If no verses were loaded, set a default verse
             currentVerse = Verse(reference: "John 3:16", text: "For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life.")
@@ -83,4 +65,4 @@ class DailyVerseManager: ObservableObject {
         
         print("Successfully loaded \(allVerses.count) verses from Psalms, Ecclesiastes, and Proverbs")
     }
-}
+} 

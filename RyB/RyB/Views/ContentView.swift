@@ -56,7 +56,7 @@ struct ContentView: View {
                         BibleView()
                             .tag(1)
                         
-                        DailyVerseView()
+                        ShareVerseView()
                             .tag(2)
                         
                         PreachingView()
